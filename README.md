@@ -1,1 +1,6 @@
-# cna-cisco-18thjuly2022
+# CNA --
+
+### training plan 
+
+<img src="plan.png">
+
