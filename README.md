@@ -148,6 +148,9 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service t
 <img src="cloudlbday1.png">
 
 
+### Migration to cloud resources  {From On-prim}
+
+<img src="day1migrate.png">
 
 
 
