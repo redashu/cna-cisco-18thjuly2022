@@ -143,6 +143,9 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service t
            ├─3701 /u
 ```
 
+### LOad balancer services in CLOUD 
+
+<img src="cloudlbday1.png">
 
 
 
