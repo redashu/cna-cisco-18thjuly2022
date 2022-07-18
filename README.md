@@ -45,7 +45,7 @@ fire@ashutoshhs-MacBook-Air ~ % ls  -l Downloads/ashuciscokey.pem
 -rw-r--r--@ 1 fire  staff  1704 Jul 18 12:17 Downloads/ashuciscokey.pem
 fire@ashutoshhs-MacBook-Air ~ % 
 fire@ashutoshhs-MacBook-Air ~ % 
-fire@ashutoshhs-MacBook-Air ~ % chmod 400 Downloads/ashuciscokey.pem 
+fire@ashutoshhs-MacBook-Air ~ % chmod 400 Downloads/ashuciscokey.pem   ## Don't required in Windows powershell 
 fire@ashutoshhs-MacBook-Air ~ % 
 fire@ashutoshhs-MacBook-Air ~ % 
 fire@ashutoshhs-MacBook-Air ~ % ls  -l Downloads/ashuciscokey.pem    
