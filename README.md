@@ -68,6 +68,11 @@ Run "sudo yum update" to apply all updates.
 [ec2-user@ip-172-31-32-163 ~]$ 
 ```
 
+### task 
+
+<img src="day1task1.png">
+
+
 
 
 
