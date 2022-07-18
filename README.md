@@ -20,6 +20,19 @@
 
 <img src="day1hy.png">
 
+### to avoid manaual management we can adopt / outsource resources -- managed by others 
+
+<img src="cnaday1.png">
+
+## intro to Virtual / cloud computing services 
+
+### Cloud Deployments Model -- for Providers 
+
+<img src="deployday1.png">
+ 
+### cloud delivery models 
+
+<img src="deployday1.png">
 
 
 
