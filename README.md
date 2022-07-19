@@ -175,6 +175,8 @@ git commit -m  "app v1 "
 
 
 ```
-### now push the changes 
+### now push the changes via ssh key pair 
+
+
 
 
