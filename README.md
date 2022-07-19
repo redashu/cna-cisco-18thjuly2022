@@ -175,7 +175,43 @@ git commit -m  "app v1 "
 
 
 ```
-### now push the changes via ssh key pair 
+### now push the changes via git personal access 
+
+### step 1 click on setting 
+
+<img src="setting.png">
+
+### step 2 go to last line -- developer settings
+
+<img src="dev.png">
+
+### step 3 personal access token 
+
+<img src="per.png">
+
+### step 4 -- click on the right side generate token -- give name and check all the boxes
+
+<img src="box.png">
+
+
+
+### lets build image again from github to docker instance
+
+```
+[ashu@docker-server ~]$ docker  ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[ashu@docker-server ~]$ docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+[ashu@docker-server ~]$ docker  build  -t  ashufrontend:appv1  https://github.com/redashu/demo-cisco-app.git#master  
+Sending build context to Docker daemon  3.757MB
+Step 1/6 : FROM fedora
+latest: Pulling from library/fedora
+e1deda52ffad: Extr
+```
+
+
+
+
 
 
 
