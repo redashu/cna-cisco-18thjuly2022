@@ -256,6 +256,18 @@ Removing login credentials for ciscoapps.azurecr.io
 
 <img src="appd.png">
 
+### problems with containers while adopting microservices 
+
+<img src="adopt.png">
+
+## container orchestration engine 
+
+<img src="carch.png">
+
+## k8s master / control plane component 
+
+<img src="master1.png">
+
 
 
 
