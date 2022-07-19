@@ -159,6 +159,22 @@ CONTAINER ID   IMAGE                COMMAND                  CREATED         STA
 
 <img src="final.png">
 
+### commit code in your personal git repo 
 
+```
+git clone  https://github.com/redashu/demo-cisco-app.git
+cp Dockerfile  demo-cisco-app/
+rm -rf  html-sample-app/.git 
+rm -rf  html-sample-app/README.txt
+cp -rf  html-sample-app/*  demo-cisco-app/
+cd  demo-cisco-app/
+git  add  .
+git config --global user.email ashutoshh@linux.com
+git config --global user.name  redashu
+git commit -m  "app v1 "
+
+
+```
+### now push the changes 
 
 
