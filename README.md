@@ -266,7 +266,7 @@ Removing login credentials for ciscoapps.azurecr.io
 
 ## k8s master / control plane component 
 
-<img src="master1.png">
+<img src="master2.png">
 
 
 
