@@ -209,6 +209,49 @@ latest: Pulling from library/fedora
 e1deda52ffad: Extr
 ```
 
+### pushing image to azure container registry 
+
+<img src="acr.png">
+
+### 
+
+```
+
+ 192  docker  tag   ashufrontend:appv1   ciscoapps.azurecr.io/commonrepo:ashuappv1.0 
+  193  docker  images
+  194  history 
+[ashu@docker-server ~]$ docker  login  ciscoapps.azurecr.io  
+Username: ciscoapps
+Password: 
+WARNING! Your password will be stored unencrypted in /home/ashu/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[ashu@docker-server ~]$ 
+```
+
+### pushing image 
+
+```
+[ashu@docker-server ~]$ docker  push  ciscoapps.azurecr.io/commonrepo:ashuappv1.0
+The push refers to repository [ciscoapps.azurecr.io/commonrepo]
+4da3b6f39114: Pushed 
+cc1d626a35c4: Pushed 
+811f92a7a340: Pushed 
+ashuappv1.0: digest: sha256:b11d8820eaca47b3704f50916f9172d9a93bf7b457f74a4d380e5978098ec4ba size: 953
+[ashu@docker-server ~]$ 
+```
+
+### logout 
+
+```
+[ashu@docker-server ~]$ docker  logout   ciscoapps.azurecr.io  
+Removing login credentials for ciscoapps.azurecr.io
+[ashu@docker-server ~]$ 
+
+```
+
 
 
 
