@@ -72,4 +72,83 @@ Server:
 
 <img src="apprun.png">
 
+### Frontend app 
+
+```
+[ashu@docker-server ~]$ mkdir  ashu_apps 
+[ashu@docker-server ~]$ ls
+ashu_apps
+[ashu@docker-server ~]$ cd  ashu_apps/
+[ashu@docker-server ashu_apps]$ git clone https://github.com/schoolofdevops/html-sample-app.git
+Cloning into 'html-sample-app'...
+remote: Enumerating objects: 74, done.
+remote: Total 74 (delta 0), reused 0 (delta 0), pack-reused 74
+Receiving objects: 100% (74/74), 1.38 MiB | 18.85 MiB/s, done.
+Resolving deltas: 100% (5/5), done.
+[ashu@docker-server ashu_apps]$ ls
+html-sample-app
+[ashu@docker-server ashu_apps]$ 
+```
+
+### adding dockerfile 
+
+```
+[ashu@docker-server ashu_apps]$ cat Dockerfile 
+FROM fedora
+# we are using fedora based os Libs from docker hub 
+LABEL name=ashutoshh
+RUN yum  install httpd -y 
+COPY html-sample-app   /var/www/html/
+# copy app to /var/www/html/ default root for apache httpd 
+EXPOSE 80 
+# let your docker engine know that default port is 80 for apache httpd (optional field)
+ENTRYPOINT  httpd -DFOREGROUND 
+```
+
+### lets build 
+
+```
+[ashu@docker-server ashu_apps]$ ls
+Dockerfile  html-sample-app
+[ashu@docker-server ashu_apps]$ docker  build  -t   ashufrontend:appv1  .  
+Sending build context to Docker daemon  3.629MB
+Step 1/6 : FROM fedora
+ ---> 98ffdbffd207
+Step 2/6 : LABEL name=ashutoshh
+ ---> Running in 04a97bebdc24
+Removing intermediate container 04a97bebdc24
+ ---> 747764a66b99
+Step 3/6 : RUN yum  install httpd -y
+ ---> Running in 7ab7b923cbd6
+Fedora 36 - x86_64                               21 MB/s |  81 MB     00:03    
+
+
+```
+
+### checking build images 
+
+```
+[ashu@docker-server ashu_apps]$ docker  images
+REPOSITORY       TAG       IMAGE ID       CREATED              SIZE
+naveefrontend    appv1     8ee51a4424fc   11 seconds ago       448MB
+john             appv1     a33af9856086   14 seconds ago       448MB
+rahulfrontend    appv1     315753ea2dc5   14 seconds ago       448MB
+ishrakfrontend   appv1     23d8a63b8da0   14 seconds ago       448MB
+ashufrontend     appv1     b961929bc8cc   23 seconds ago       448MB
+ezong            appv1.0   6413d3b4d1b2   49 seconds ago       448MB
+```
+
+### creating frontend container app 
+
+```
+[ashu@docker-server ashu_apps]$ docker  run  -d  --name ashufrc1   -p 1234:80    ashufrontend:appv1 
+273ba744a7ccc82b336e3bda932c6e41264b23de92728bd61c7b751a8bfd359f
+[ashu@docker-server ashu_apps]$ docker  ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+273ba744a7cc   ashufrontend:appv1   "/bin/sh -c 'httpd -…"   6 seconds ago   Up 4 seconds   0.0.0.0:1234->80/tcp, :::1234->80/tcp   ashufrc1
+[ashu@docker-server ashu_apps]$ 
+
+
+```
+
 
