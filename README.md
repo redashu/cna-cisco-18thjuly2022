@@ -32,3 +32,45 @@ cc1d626a35c4: Pushing [========================>
 Removing login credentials for https://index.docker.io/v1/
 ```
 
+### k8s cluster setup on prim 
+
+<img src="setup1.png">
+
+## common steps in ALL the VMs
+
+```
+[root@ip-172-31-28-99 ~]# 
+[root@ip-172-31-28-99 ~]# hostnamectl set-hostname   control-plane 
+[root@ip-172-31-28-99 ~]# logout
+[ec2-user@ip-172-31-28-99 ~]$ sudo -i
+[root@control-plane ~]# hostname
+control-plane
+[root@control-plane ~]# 
+
+
+=======>>ENABLE iptables modules 
+
+[root@control-plane ~]# modprobe br_netfilter 
+[root@control-plane ~]# echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+[root@control-plane ~]# 
+
+==========> Install any CRE 
+
+root@control-plane ~]# yum install docker  -y  
+Failed to set locale, defaulting to C
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                                                                                  | 3.7 kB  00:00:00     
+Resolving Dependencies
+--> Running transaction check
+---> Package docker.x86_64 0:20.10.13-2.amzn2 will be installed
+--> Processing Dependency: runc >= 1.0.0 for package: docker-20.10.13-2.amzn2.x86_64
+--> Processing Dependency: libcgroup >= 0.40.rc1-5.15 for package: docker-20.10.13-2.amzn2.x86_64
+--> Processing Dependency: containerd >= 1.3.2 for package: docker-20.10.13-2.amzn2.x86_64
+--> Processing Dependency: pigz for package: docker-20.10.13-2.amzn2.x86_64
+--> Running transaction check
+
+======<<>> 
+
+
+
+```
