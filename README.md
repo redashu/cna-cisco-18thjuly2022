@@ -130,3 +130,38 @@ root@control-plane ~]# kubeadm  init --pod-network-cidr=192.168.0.0/16  --apiser
 ```
 kubeadm join 172.31.28.99:6443 --token v16x783hv9  --discovery-token-ca-cert-hash sha512:e629457bd08fe9646e
 ```
+
+### check on control plane side only 
+
+```
+root@control-plane ~]# kubectl get  nodes
+NAME               STATUS     ROLES           AGE    VERSION
+control-plane      NotReady   control-plane   7m5s   v1.24.3
+ezong-workernode   NotReady   <none>          51s    v1.24.3
+ish-workernode     NotReady   <none>          61s    v1.24.3
+naveehost          NotReady   <none>          54s    v1.24.3
+rahul-woker-node   NotReady   <none>          53s    v1.24.3
+siva-worker        NotReady 
+```
+
+### now implement Network CNI for container 
+
+```
+  21  wget https://docs.projectcalico.org/manifests/calico.yaml
+   22  kubectl apply -f calico.yaml 
+  
+  ==
+  [root@control-plane ~]# kubectl get  nodes
+NAME               STATUS   ROLES           AGE     VERSION
+control-plane      Ready    control-plane   10m     v1.24.3
+ezong-workernode   Ready    <none>          4m11s   v1.24.3
+inder-worker       Ready    <none>          3m19s   v1.24.3
+ish-workernode     Ready    <none>          4m21s   v1.24.3
+naveehost          Ready    <none>          4m14s   v1.24.3
+prraina-wrkr       Ready    <none>          94s     v1.24.3
+rahul-woker-node   Ready    <none>          4m13s   v1.24.3
+siva-worker        Ready    <none>          4m31s   v1.24.3
+ujjawal-worker     Ready    <none>       
+
+
+```
