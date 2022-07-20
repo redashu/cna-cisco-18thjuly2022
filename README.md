@@ -454,8 +454,63 @@ ashufrontend-66ccfb99c-jkc8h   1/1     Running   0          5m50s   192.168.31.2
 
 ```
 
+### Deployment -- of DB 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl  create  deployment   mydep1  --image=mysql:5.6 --port 3306  --dry-run=client -o yaml   >ashu_db.yaml 
+[ashu@docker-server k8s-deployments]$ ls
+ashu_db.yaml  ashu_frontend.yaml  ashupod1.yaml  k8s-req-structure.yaml  logs.txt  q1.yaml
+[ashu@docker-server k8s-deployments]$ vim  ashu_db.yaml 
+[ashu@docker-server k8s-deployments]$ kubectl  apply -f  ashu_db.yaml 
+deployment.apps/mydep1 created
+[ashu@docker-server k8s-deployments]$ kubectl  get deploy 
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+ashufrontend   0/0     0            0           44m
+mydep1         0/1     1            0           4s
+[ashu@docker-server k8s-deployments]$ kubectl  get po 
+NAME                      READY   STATUS    RESTARTS   AGE
+mydep1-5994b4566d-vxrqq   1/1     Running   0          12s
+[ashu@docker-server k8s-deployments]$ kubectl  get deploy 
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+ashufrontend   0/0     0            0           44m
+mydep1         1/1     1            1           18s
+[ashu@docker-server k8s-deployments]$ 
 
 
+```
+
+### Db yaml 
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mydep1
+  name: mydep1
+spec:
+  replicas: 1 # number of pods 
+  selector:
+    matchLabels:
+      app: mydep1
+  strategy: {}
+  template: # for update Pod related Info 
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mydep1
+    spec:
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        ports:
+        - containerPort: 3306
+        env: # using env keyword for Defining env var in k8s 
+        - name: MYSQL_ROOT_PASSWORD
+          value: "CiscoDb@123"
+        resources: {}
+```
 
 
 
