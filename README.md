@@ -246,3 +246,70 @@ ish-workernode     Ready    <none>          46m   v1.24.3
 naveehost          Ready    <none>          46m   v1.24.3
 ```
 
+### Introduction to PODs 
+
+<img src="pods.png">
+
+### a basic k8s app request structure 
+
+```
+[ashu@docker-server k8s-deployments]$ vim   k8s-req-structure.yaml 
+[ashu@docker-server k8s-deployments]$ cat  k8s-req-structure.yaml 
+apiVersion:
+kind: 
+metadata:
+spec: 
+[ashu@docker-server k8s-deployments]$ vim   k8s-req-structure.yaml 
+[ashu@docker-server k8s-deployments]$ cat k8s-req-structure.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ashupod-1
+spec: 
+  containers: 
+```
+
+### lets auto generate YAML 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl   run  ashuapp1  --image=docker.io/dockerashu/ashufrontend:appv1  --port 80  --dry-run=client  -o yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: ashuapp1
+  name: ashuapp1
+spec:
+
+```
+
+### store output in a yAML file 
+
+```
+kubectl   run  ashuapp1  --image=docker.io/dockerashu/ashufrontend:appv1  --port 80  --dry-run=client  -o yaml  >ashupod1.yaml
+```
+
+### lets deploy it 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl apply -f  ashupod1.yaml 
+pod/ashuapp1 created
+[ashu@docker-server k8s-deployments]$ kubectl  get pods
+NAME               READY   STATUS              RESTARTS   AGE
+ashuapp1           0/1     ContainerCreating   0          7s
+ishrakapp1         0/1     ImagePullBackOff    0          4s
+prraina-frontend   1/1     Running             0          27s
+[ashu@docker-server k8s-deployments]$ kubectl  get pods
+NAME               READY   STATUS             RESTARTS   AGE
+ashuapp1           1/1     Running            0          14s
+ishrakapp1         0/1     ImagePullBackOff   0          11s
+prraina-frontend   1/1     Running            0          34s
+[ashu@docker-server k8s-deployments]$ kubectl  get pods -o wide
+NAME               READY   STATUS             RESTARTS   AGE   IP                NODE               NOMINATED NODE   READINESS GATES
+ashuapp1           1/1     Running            0          27s   192.168.187.129   rahul-woker-node   <none>           <none>
+ishrakapp1         0/1     ImagePullBackOff   0          24s   192.168.45.65     inder-worker       <none>           <none>
+prraina-frontend   1/1     Running            0          47s   192.168.127.129   ezong-workernode   <none>           <none>
+[ashu@docker-server k8s-deployments]$ 
+
+```
