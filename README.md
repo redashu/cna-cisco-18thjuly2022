@@ -69,8 +69,33 @@ Resolving Dependencies
 --> Processing Dependency: pigz for package: docker-20.10.13-2.amzn2.x86_64
 --> Running transaction check
 
-======<<>> 
+======<<>> If you are using k8s 1.20 + version then only 
+
+[root@control-plane ~]# cat  <<X  >/etc/docker/daemon.json
+> {
+>   "exec-opts": ["native.cgroupdriver=systemd"]
+> }
+> 
+> X
 
 
+[root@control-plane ~]# 
+[root@control-plane ~]# systemctl daemon-reload 
+[root@control-plane ~]# systemctl enable --now docker  # in any version you have to perform 
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+[root@control-plane ~]# 
+
+
+============> Installing k8s installer tool called Kubeadm -- >?
+
+cat  <<EOF  >/etc/yum.repos.d/kube.repo
+> [kube]
+> baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+> gpgcheck=0
+> EOF
+
+
+==
+yum  install  kubeadm -y  ; systemctl enable --now  kubelet
 
 ```
