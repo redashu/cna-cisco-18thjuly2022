@@ -165,3 +165,84 @@ ujjawal-worker     Ready    <none>
 
 
 ```
+
+### Install kubectl tool to connect k8s control plane on client side 
+
+[LInk](https://kubernetes.io/docs/tasks/tools/)
+
+### Now client / devops/ admin side operation to deploy app 
+
+```
+[ashu@docker-server ~]$ kubectl version --client -o yaml 
+clientVersion:
+  buildDate: "2022-07-13T14:30:46Z"
+  compiler: gc
+  gitCommit: aef86a93758dc3cb2c658dd9657ab4ad4afc21cb
+  gitTreeState: clean
+  gitVersion: v1.24.3
+  goVersion: go1.18.3
+  major: "1"
+  minor: "24"
+  platform: linux/amd64
+kustomizeVersion: v4.5.4
+
+
+```
+
+### lets get auth details from control plane 
+
+<img src="cls.png">
+
+### on control plane location of auth file 
+
+```
+root@control-plane ~]# cd  /etc/kubernetes/
+[root@control-plane kubernetes]# ls
+admin.conf  controller-manager.conf  kubelet.conf  manifests  pki  scheduler.conf
+[root@control-plane kubernetes]# more  admin.conf 
+apiVersion: v1
+clusters:
+- cluster:
+```
+
+### client side setup 
+
+```
+[ashu@docker-server ~]$ whoami
+ashu
+[ashu@docker-server ~]$ pwd
+/home/ashu
+[ashu@docker-server ~]$ mkdir .kube 
+[ashu@docker-server ~]$ cd .kube/
+[ashu@docker-server .kube]$ wget  172.31.28.99/admin.conf 
+--2022-07-20 06:35:52--  http://172.31.28.99/admin.conf
+Connecting to 172.31.28.99:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 5636 (5.5K) [text/plain]
+Saving to: ‘admin.conf’
+
+100%[=============================================================================>] 5,636       --.-K/s   in 0s      
+
+2022-07-20 06:35:52 (924 MB/s) - ‘admin.conf’ saved [5636/5636]
+
+[ashu@docker-server .kube]$ ls
+admin.conf
+[ashu@docker-server .kube]$ mv admin.conf  config 
+[ashu@docker-server .kube]$ 
+
+
+```
+
+### lets verify 
+
+```
+ashu@docker-server ~]$ kubectl  get  nodes
+NAME               STATUS   ROLES           AGE   VERSION
+arun-node          Ready    <none>          41m   v1.24.3
+control-plane      Ready    control-plane   52m   v1.24.3
+ezong-workernode   Ready    <none>          46m   v1.24.3
+inder-worker       Ready    <none>          45m   v1.24.3
+ish-workernode     Ready    <none>          46m   v1.24.3
+naveehost          Ready    <none>          46m   v1.24.3
+```
+
