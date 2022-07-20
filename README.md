@@ -99,3 +99,34 @@ cat  <<EOF  >/etc/yum.repos.d/kube.repo
 yum  install  kubeadm -y  ; systemctl enable --now  kubelet
 
 ```
+
+## ONly we need to perform on the system we want to configure as COntrol-plane 
+
+
+```
+root@control-plane ~]# kubeadm  init --pod-network-cidr=192.168.0.0/16  --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=3.12.189.181  
+[init] Using Kubernetes version: v1.24.3
+[preflight] Running pre-flight checks
+	[WARNING FileExisting-tc]: tc not found in system path
+	[WARNING Hostname]: hostname "control-plane" could not be reached
+	[WARNING Hostname]: hostname "control-plane": lookup control-plane on 172.31.0.2:53: no such host
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+
+```
+
+### 
+
+```
+[root@control-plane ~]# mkdir -p $HOME/.kube
+[root@control-plane ~]# cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+```
+
+### ONly ON worker Nodes 
+
+```
+kubeadm join 172.31.28.99:6443 --token v16x783hv9  --discovery-token-ca-cert-hash sha512:e629457bd08fe9646e
+```
