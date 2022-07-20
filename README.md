@@ -578,5 +578,9 @@ ashufrontend-lb   NodePort   10.110.236.210   <none>        80:32634/TCP   11s
 
 ```
 
+### Nodeport service 
+
+<img src="np.png">
+
 
 
