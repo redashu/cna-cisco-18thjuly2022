@@ -354,4 +354,18 @@ exit
 
 ```
 
+### lets do more operations 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl logs  ashuapp1
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 192.168.187.130. Set the 'ServerName' directive globally to suppress this message
+[ashu@docker-server k8s-deployments]$ kubectl delete  pods  ashuapp1
+pod "ashuapp1" deleted
+[ashu@docker-server k8s-deployments]$ kubectl  get  po
+NAME               READY   STATUS         RESTARTS   AGE
+arunapp1           1/1     Running        0          7m30s
+ishrakapp1         1/1     Running       
+```
+
+
 
