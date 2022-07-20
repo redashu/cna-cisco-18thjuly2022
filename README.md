@@ -539,7 +539,44 @@ round-trip min/avg/max = 0.572/0.695/0.935 ms
 [ashu@docker-server k8s-deployments]$ 
 ```
 
+### Introduction to Internal networking -- service 
 
+<img src="svc.png">
+
+### scaling deloy and createing service of NodePort type --
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl  scale deploy ashufrontend  --replicas=3
+deployment.apps/ashufrontend scaled
+[ashu@docker-server k8s-deployments]$ kubectl  get  deploy 
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+ashufrontend   3/3     3            3           104m
+mydep1         1/1     1            1           59m
+[ashu@docker-server k8s-deployments]$ kubectl  get  po 
+NAME                           READY   STATUS    RESTARTS        AGE
+ashufrontend-66ccfb99c-25g2r   1/1     Running   0               9s
+ashufrontend-66ccfb99c-9pfkl   1/1     Running   0               9s
+ashufrontend-66ccfb99c-jr4sk   1/1     Running   0               9s
+mydep1-5994b4566d-vxrqq        1/1     Running   0               59m
+
+=====>>
+[ashu@docker-server k8s-deployments]$ kubectl  get  deploy 
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+ashufrontend   3/3     3            3           105m
+mydep1         1/1     1            1           61m
+[ashu@docker-server k8s-deployments]$ kubectl  expose deployment   ashufrontend  --type NodePort --port 80 --name ashufrontend-lb  
+service/ashufrontend-lb exposed
+[ashu@docker-server k8s-deployments]$ 
+[ashu@docker-server k8s-deployments]$ kubectl  get  service 
+NAME              TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+ashufrontend-lb   NodePort   10.110.236.210   <none>        80:32634/TCP   7s
+[ashu@docker-server k8s-deployments]$ kubectl  get  svc
+NAME              TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+ashufrontend-lb   NodePort   10.110.236.210   <none>        80:32634/TCP   11s
+[ashu@docker-server k8s-deployments]$ 
+
+
+```
 
 
 
