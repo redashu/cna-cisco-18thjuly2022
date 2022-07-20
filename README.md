@@ -367,5 +367,69 @@ arunapp1           1/1     Running        0          7m30s
 ishrakapp1         1/1     Running       
 ```
 
+### More about app Deployment -- 
+
+### creating apps in custom namespaces 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl  create  namespace  ashu-apps 
+namespace/ashu-apps created
+[ashu@docker-server k8s-deployments]$ kubectl  get  ns
+NAME              STATUS   AGE
+ashu-apps         Active   4s
+default           Active   3h26m
+kube-node-lease   Active   3h26m
+kube-public       Active   3h26m
+kube-system       Active   3h26m
+[ashu@docker-server k8s-deployments]$ kubectl config  set-context  --current --namespace=ashu-apps 
+Context "kubernetes-admin@kubernetes" modified.
+[ashu@docker-server k8s-deployments]$ 
+[ashu@docker-server k8s-deployments]$ kubectl  get  pods
+No resources found in ashu-apps namespace.
+[ashu@docker-server k8s-deployments]$ 
+
+```
+
+### Introduction to deployment controller in K8s 
+
+<img src="dep.png">
+
+###
+```
+kubectl  create  deployment  ashufrontend  --image=docker.io/dockerashu/ashufrontend:appv1    --port 80 --dry-run=client  -o yaml  >ashu_frontend.yaml 
+```
+
+### Deploy to pod 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl apply -f ashu_frontend.yaml 
+deployment.apps/ashufrontend created
+[ashu@docker-server k8s-deployments]$ kubectl   get  deployment  
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+ashufrontend   1/1     1            1           4s
+[ashu@docker-server k8s-deployments]$ kubectl   get  po
+NAME                           READY   STATUS    RESTARTS   AGE
+ashufrontend-66ccfb99c-vr9ml   1/1     Running   0          10s
+[ashu@docker-server k8s-deployments]$ kubectl   get  po -o wide
+NAME                           READY   STATUS    RESTARTS   AGE   IP                NODE               NOMINATED NODE   READINESS GATES
+ashufrontend-66ccfb99c-vr9ml   1/1     Running   0          17s   192.168.187.136   rahul-woker-node   <none>           <none>
+[ashu@docker-server k8s-deployments]$ kubectl delete pod ashufrontend-66ccfb99c-vr9ml
+pod "ashufrontend-66ccfb99c-vr9ml" deleted
+[ashu@docker-server k8s-deployments]$ kubectl   get  po -o wide
+NAME                           READY   STATUS    RESTARTS   AGE   IP                NODE             NOMINATED NODE   READINESS GATES
+ashufrontend-66ccfb99c-s5hcs   1/1     Running   0          3s    192.168.189.134   ujjawal-worker   <none>           <none>
+[ashu@docker-server k8s-deployments]$ kubectl delete pod ashufrontend-66ccfb99c-s5hcs
+pod "ashufrontend-66ccfb99c-s5hcs" deleted
+[ashu@docker-server k8s-deployments]$ kubectl   get  po -o wide
+NAME                           READY   STATUS    RESTARTS   AGE   IP               NODE           NOMINATED NODE   READINESS GATES
+ashufrontend-66ccfb99c-jkc8h   1/1     Running   0          2s    192.168.31.202   prraina-wrkr   <none>           <none>
+[ashu@docker-server k8s-deployments]$ 
+
+
+```
+
+
+
+
 
 
