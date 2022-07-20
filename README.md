@@ -428,6 +428,34 @@ ashufrontend-66ccfb99c-jkc8h   1/1     Running   0          2s    192.168.31.202
 
 ```
 
+### more abotu depployment 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl  get  deploy 
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+ashufrontend   1/1     1            1           5m46s
+[ashu@docker-server k8s-deployments]$ kubectl  get  po 
+NAME                           READY   STATUS    RESTARTS   AGE
+ashufrontend-66ccfb99c-jkc8h   1/1     Running   0          5m4s
+[ashu@docker-server k8s-deployments]$ kubectl scale deployment  ashufrontend  --replicas=3
+deployment.apps/ashufrontend scaled
+[ashu@docker-server k8s-deployments]$ kubectl  get  po 
+NAME                           READY   STATUS    RESTARTS   AGE
+ashufrontend-66ccfb99c-8wgkv   1/1     Running   0          7s
+ashufrontend-66ccfb99c-dchhp   1/1     Running   0          7s
+ashufrontend-66ccfb99c-jkc8h   1/1     Running   0          5m44s
+[ashu@docker-server k8s-deployments]$ kubectl  get  po -o wide
+NAME                           READY   STATUS    RESTARTS   AGE     IP                NODE             NOMINATED NODE   READINESS GATES
+ashufrontend-66ccfb99c-8wgkv   1/1     Running   0          13s     192.168.103.7     naveehost        <none>           <none>
+ashufrontend-66ccfb99c-dchhp   1/1     Running   0          13s     192.168.189.135   ujjawal-worker   <none>           <none>
+ashufrontend-66ccfb99c-jkc8h   1/1     Running   0          5m50s   192.168.31.202    prraina-wrkr     <none>           <none>
+[ashu@docker-server k8s-deployments]$ 
+
+
+```
+
+
+
 
 
 
