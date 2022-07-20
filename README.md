@@ -313,3 +313,45 @@ prraina-frontend   1/1     Running            0          47s   192.168.127.129  
 [ashu@docker-server k8s-deployments]$ 
 
 ```
+
+### pod details 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl describe pod  ashuapp1
+Name:         ashuapp1
+Namespace:    default
+Priority:     0
+Node:         rahul-woker-node/172.31.41.232
+Start Time:   Wed, 20 Jul 2022 07:17:48 +0000
+Labels:       run=ashuapp1
+Annotations:  cni.projectcalico.org/containerID: 563792be09d9fe700b7bfa28a339a62b6911ab00662454d23c8ed5947693b600
+              cni.projectcalico.org/podIP: 192.168.187.130/32
+              cni.projectcalico.org/podIPs: 192.168.187.130/32
+Status:       Running
+IP:           192.168.187.130
+IPs:
+  IP:  192.168.187.130
+Containers:
+  ashuapp1:
+    Container ID:   containerd://040c0a9144e62ad7e07b30121018dfc2e494da6e96b86a005ab454726421b61a
+    Image:          docker.io/dockerashu/ashufrontend:appv1
+    Image ID:       docker.io/dockerashu/ashufrontend@sha256:b11d8820eaca47b3704f50916f9172d9a93bf7b457f74a4d380e5978098ec4ba
+    Port:           80/TCP
+
+```
+
+### access pod 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl  exec  -it ashuapp1  --  bash 
+[root@ashuapp1 /]# 
+[root@ashuapp1 /]# 
+[root@ashuapp1 /]# cd /var/www/html/
+[root@ashuapp1 html]# ls
+Dockerfile  LICENSE.txt  README.md  assets  elements.html  generic.html  html5up-phantom.zip  images  index.html
+[root@ashuapp1 html]# exit
+exit
+
+```
+
+
