@@ -512,6 +512,33 @@ spec:
         resources: {}
 ```
 
+### POd communication is not a problem --auto deal by CNI --
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl  run net-test  --image=alpine --command sleep 1000 
+pod/net-test created
+[ashu@docker-server k8s-deployments]$ kubectl  get po -o wide
+NAME                      READY   STATUS              RESTARTS   AGE   IP              NODE           NOMINATED NODE   READINESS GATES
+mydep1-5994b4566d-vxrqq   1/1     Running             0          20m   192.168.45.82   inder-worker   <none>           <none>
+net-test                  0/1     ContainerCreating   0          2s    <none>          siva-worker    <none>           <none>
+[ashu@docker-server k8s-deployments]$ kubectl  get po -o wide
+NAME                      READY   STATUS    RESTARTS   AGE   IP               NODE           NOMINATED NODE   READINESS GATES
+mydep1-5994b4566d-vxrqq   1/1     Running   0          20m   192.168.45.82    inder-worker   <none>           <none>
+net-test                  1/1     Running   0          7s    192.168.162.13   siva-worker    <none>           <none>
+[ashu@docker-server k8s-deployments]$ kubectl  exec -it net-test -- sh 
+/ # ping 192.168.45.82
+PING 192.168.45.82 (192.168.45.82): 56 data bytes
+64 bytes from 192.168.45.82: seq=0 ttl=62 time=0.935 ms
+64 bytes from 192.168.45.82: seq=1 ttl=62 time=0.572 ms
+64 bytes from 192.168.45.82: seq=2 ttl=62 time=0.579 ms
+^C
+--- 192.168.45.82 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.572/0.695/0.935 ms
+/ # 
+[ashu@docker-server k8s-deployments]$ 
+```
+
 
 
 
