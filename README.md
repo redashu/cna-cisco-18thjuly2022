@@ -238,3 +238,22 @@ frontend   1/1     1            1           17s
 [ashu@docker-server myapp]$ 
 ```
 
+### LB for front end 
+
+```
+[ashu@docker-server k8s-deployments]$ kubectl  get deploy 
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+ashudb     1/1     1            1           80m
+frontend   1/1     1            1           20m
+[ashu@docker-server k8s-deployments]$ kubectl expose deploy frontend  --type NodePort  --port 80 --name frontlb 
+service/frontlb exposed
+[ashu@docker-server k8s-deployments]$ kubectl  get svc
+NAME        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+ashudb-lb   ClusterIP   10.99.132.76     <none>        3306/TCP       40m
+frontlb     NodePort    10.108.128.218   <none>        80:31458/TCP   8s
+[ashu@docker-server k8s-deployments]$ 
+
+
+```
+
+
