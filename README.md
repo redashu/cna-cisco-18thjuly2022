@@ -256,4 +256,64 @@ frontlb     NodePort    10.108.128.218   <none>        80:31458/TCP   8s
 
 ```
 
+### history of commands 
+
+```
+ 521  kubectl replace -f . --force 
+  522  kubectl  get  cm 
+  523  kubectl  get  secret
+  524  kubectl  get deloy 
+  525  kubectl  get deploy 
+  526  kubectl  get po 
+  527  kubectl logs  ashudb-fbf675fb8-qs9nr
+  528  ls
+  529  history 
+  530  kubectl  create  secret generic  db_cred  --from-literal  sqlpass="Cisco@123#" --from-liter rootpass="Cisco@123#" --dry-run=client -o yaml  db_cred.yaml 
+  531  kubectl  create  secret generic  db_cred  --from-literal  sqlpass="Cisco@123#" --from-literal rootpass="Cisco@123#" --dry-run=client -o yaml  db_cred.yaml 
+  532  history 
+  533  kubectl  create  secret generic  db_cred  --from-literal  sqlpass="Cisco@123#" --from-literal rootpass="Cisco@123#" --dry-run=client -o yaml  db_cred.yaml 
+  534  kubectl  create  secret generic  db_cred  --from-literal  sqlpass="Cisco@123#" --from-literal rootpass="Cisco@123#" --dry-run=client -o yaml  >db_cred.yaml 
+  535  history 
+  536  ls
+  537  vim db_deploy.yaml 
+  538  kubectl replace -f . --force 
+  539  vim db_secret.yaml 
+  540  ls
+  541  rm db_cred.yaml 
+  542  vim db_secret.yaml 
+  543  history 
+  544  kubectl  create  secret generic  db_cred  --from-literal  sqlpass="Cisco@123#" --from-literal rootpass="Cisco@123#" --dry-run=client -o yaml  >db_secret.yaml 
+  545  vim db_secret.yaml 
+  546  history 
+  547  kubectl replace -f . --force 
+  548  kubectl  get  deploy 
+  549  kubectl  get  cm
+  550  kubectl  get secret
+  551  cat  db_deploy.yaml 
+  552  exit
+  553  eixt
+  554  exit
+  555  kubectl  get  deploy 
+  556  kubectl  get  cm
+  557  kubectl  get secret
+  558  kubectl  get  po
+  559  exit
+  560  ls
+  561  cd ashu_apps/
+  562  ls
+  563  cd k8s-deployments/
+  564  ls
+  565  kubectl  get  deploy 
+  566  kubectl  get svc
+  567  kubectl get  po 
+  568  kubectl exec -it  ashudb-6d845d6ff9-xgc2g -- bash 
+  569  ls
+  570  kubectl  get deploy 
+  571  kubectl expose deploy frontend  --type NodePort  --port 80 --name frontlb 
+  572  kubectl  get svc
+  573  kubectl  get  no
+
+
+```
+
 
