@@ -316,4 +316,16 @@ frontlb     NodePort    10.108.128.218   <none>        80:31458/TCP   8s
 
 ```
 
+## Devops in Industry 
+
+<img src="devops.png">
+
+###  CiCd tools 
+
+<img src="cicd.png">
+
+### Jenkins intro 
+
+<img src="jenkins.png">
+
 
