@@ -136,3 +136,21 @@ db-cred   Opaque   2      17s
 
 ```
 
+### creating Internal LB for Db 
+
+```
+[ashu@docker-server ~]$ kubectl  get  deploy 
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+ashudb   1/1     1            1           38m
+[ashu@docker-server ~]$ kubectl expose deployment ashudb  --type ClusterIP --port 3306  --name ashudb-lb --dry-run=client -o yaml   >dbsvc.yaml
+
+[ashu@docker-server myapp]$ kubectl apply -f  dbsvc.yaml 
+service/ashudb-lb created
+[ashu@docker-server myapp]$ kubectl  get  svc
+NAME        TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+ashudb-lb   ClusterIP   10.99.132.76   <none>        3306/TCP   3s
+[ashu@docker-server myapp]$ 
+
+
+```
+
