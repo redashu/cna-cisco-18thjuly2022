@@ -200,7 +200,7 @@ spec:
         - configMapRef:
            name: web-db-conn 
         env: # calling secret 
-        - name: MYSQL_PASSWORD
+        - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: db-cred
