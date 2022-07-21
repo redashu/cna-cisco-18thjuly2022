@@ -167,3 +167,74 @@ kubectl create  deployment  frontend  --image=wordpress:4.8-apache --port 80 --d
 ```
  kubectl  create configmap  web-db-conn --from-literal  WORDPRESS_DB_USER="admin" --from-literal  WORDPRESS_DB_NAME="webapp" --from-literal WORDPRESS_DB_HOST="ashudb-lb"   --dry-run=client -o yaml >web_config.yaml
 ```
+
+### calling configMap and secret in Deployment file 
+
+```
+[ashu@docker-server myapp]$ cat web_deploy.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: wordpress:4.8-apache
+        name: wordpress
+        ports:
+        - containerPort: 80
+        envFrom: # calling configmap 
+        - configMapRef:
+           name: web-db-conn 
+        env: # calling secret 
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: sqlpass 
+        resources: {}
+status: {}
+
+```
+
+
+### lets deploy it 
+
+```
+ashu@docker-server myapp]$ kubectl apply -f  web_config.yaml  -f web_deploy.yaml 
+configmap/web-db-conn created
+deployment.apps/frontend created
+[ashu@docker-server myapp]$ 
+[ashu@docker-server myapp]$ kubectl  get  cm 
+NAME               DATA   AGE
+db-details         2      57m
+kube-root-ca.crt   1      21h
+web-db-conn        3      5s
+[ashu@docker-server myapp]$ kubectl  get  deploy 
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+ashudb     1/1     1            1           57m
+frontend   0/1     1            0           9s
+[ashu@docker-server myapp]$ kubectl  get  po
+NAME                        READY   STATUS    RESTARTS   AGE
+ashudb-6d845d6ff9-xgc2g     1/1     Running   0          57m
+frontend-769f59c8d8-stn5v   1/1     Running   0          14s
+[ashu@docker-server myapp]$ kubectl  get  deploy 
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+ashudb     1/1     1            1           57m
+frontend   1/1     1            1           17s
+[ashu@docker-server myapp]$ 
+```
+
