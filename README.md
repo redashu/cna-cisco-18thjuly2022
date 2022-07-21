@@ -55,7 +55,7 @@ create  configmap  db_details  --from-literal MYSQL_USER="admin" --from-literal 
 ### storing db credentials 
 
 ```
-kubectl  create  secret generic  db_cred  --from-literal  sqlpass="Cisco@123#"  --dry-run=client -o yaml   >db_secret.yaml
+kubectl  create  secret generic  db-cred  --from-literal  sqlpass="Cisco@123#" --from-literal rootpass="Cisco@123#" --dry-run=client -o yaml  >db_secret.yaml
 ```
 
 ### Deployment file final 
@@ -81,10 +81,10 @@ spec:
       labels:
         app: ashudb
     spec:
-      volumes: 
+      volumes: # to create volume from some source 
       - name: ashudb-vol
         hostPath:
-         path: /db/ashu/
+         path: /db/ashu/ 
          type: DirectoryOrCreate
       containers:
       - image: mysql:5.6
@@ -96,13 +96,18 @@ spec:
           mountPath: /var/lib/mysql/ # defautl location where you store db 
         envFrom: # call from config details 
         - configMapRef:
-            name: db_details 
+            name: db-details 
         env: # call/ change env variable 
         - name: MYSQL_PASSWORD
           valueFrom: # reading value from some reference 
             secretKeyRef: # secret is the reference 
-              name: db_cred 
+              name: db-cred 
               key: sqlpass
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom: # reading value from some reference 
+            secretKeyRef: # secret is the reference 
+              name: db-cred 
+              key: rootpass
         resources: {}
 status: {}
 
@@ -111,30 +116,23 @@ status: {}
 ### final deploy of db section 
 
 ```
-[ashu@docker-server myapp]$ kubectl  apply   -f   . 
-configmap/db-details created
-deployment.apps/ashudb created
-secret/db-cred created
-[ashu@docker-server myapp]$ kubectl  get  configmap 
-NAME               DATA   AGE
-db-details         2      10s
-kube-root-ca.crt   1      20h
+[ashu@docker-server myapp]$ kubectl replace -f . --force 
+configmap "db-details" deleted
+deployment.apps "ashudb" deleted
+secret "db-cred" deleted
+configmap/db-details replaced
+deployment.apps/ashudb replaced
+secret/db-cred replaced
+[ashu@docker-server myapp]$ kubectl  get  deploy 
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+ashudb   1/1     1            1           9s
 [ashu@docker-server myapp]$ kubectl  get  cm
 NAME               DATA   AGE
 db-details         2      14s
 kube-root-ca.crt   1      20h
-[ashu@docker-server myapp]$ kubectl  get  secret
+[ashu@docker-server myapp]$ kubectl  get secret
 NAME      TYPE     DATA   AGE
-db-cred   Opaque   1      21s
-[ashu@docker-server myapp]$ kubectl  get deploy 
-NAME     READY   UP-TO-DATE   AVAILABLE   AGE
-ashudb   0/1     1            0           28s
-[ashu@docker-server myapp]$ kubectl  get  po
-NAME                      READY   STATUS              RESTARTS   AGE
-ashudb-5f8fc8c47f-wqwp6   0/1     ContainerCreating   0          36s
-[ashu@docker-server myapp]$ 
-
-
+db-cred   Opaque   2      17s
 
 ```
 
