@@ -154,3 +154,16 @@ ashudb-lb   ClusterIP   10.99.132.76   <none>        3306/TCP   3s
 
 ```
 
+## webapp Deployment steps 
+
+### deloyment file 
+
+```
+kubectl create  deployment  frontend  --image=wordpress:4.8-apache --port 80 --dry-run=client -o yaml    >web_deploy.yaml 
+```
+
+### db connect details 
+
+```
+ kubectl  create configmap  web-db-conn --from-literal  WORDPRESS_DB_USER="admin" --from-literal  WORDPRESS_DB_NAME="webapp" --from-literal WORDPRESS_DB_HOST="ashudb-lb"   --dry-run=client -o yaml >web_config.yaml
+```
