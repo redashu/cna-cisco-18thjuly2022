@@ -49,7 +49,7 @@ kubectl   create  deployment  ashudb  --image=mysql:5.6  --port 3306 --dry-run=c
 ### COnfiguration Details 
 
 ```
-create  configmap  db_details  --from-literal MYSQL_USER="admin" --from-literal MYSQL_DATABASE="webapp"  --dry-run=client -o yaml  >db_configmap.yaml
+create  configmap  db-details  --from-literal MYSQL_USER="admin" --from-literal MYSQL_DATABASE="webapp"  --dry-run=client -o yaml  >db_configmap.yaml
 ```
 
 ### storing db credentials 
