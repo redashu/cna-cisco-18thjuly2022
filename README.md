@@ -160,6 +160,13 @@ ashulb1   NodePort   10.103.68.243   <none>        80:30825/TCP   4s
 
 <img src="ingress.png">
 
+### for Cd purpose we deploying argoCD 
+
+```
+ 771  kubectl create namespace argocd
+  772  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
 
 
 
