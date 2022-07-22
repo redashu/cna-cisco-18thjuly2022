@@ -130,5 +130,37 @@ ashu-azure-secret   kubernetes.io/dockerconfigjson   1      7m21s
 
 ```
 
+### exposing all using service 
+
+```
+[ashu@docker-server acr_deployment]$ kubectl  get  deploy 
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+ashuapp   1/1     1            1           19m
+[ashu@docker-server acr_deployment]$ kubectl  expose deploy  ashuapp  --type NodePort --port 80 --name ashulb1  --dry-run=client -o   yaml  >azuresvc.yaml 
+[ashu@docker-server acr_deployment]$ ls
+azureapp_deploy.yaml  azuresvc.yaml  secret.yaml
+[ashu@docker-server acr_deployment]$ kubectl  apply -f  azuresvc.yaml 
+service/ashulb1 created
+[ashu@docker-server acr_deployment]$ kubectl  get  svc
+NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+ashulb1   NodePort   10.103.68.243   <none>        80:30825/TCP   4s
+[ashu@docker-server acr_deployment]$ 
+
+```
+
+### load balancer related problems 
+
+<img src="lbprob.png">
+
+### Cloud managed k8s solution 
+
+<img src="sol.png">
+
+### Ingress controller as solution 
+
+<img src="ingress.png">
+
+
+
 
 
